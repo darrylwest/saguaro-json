@@ -1,6 +1,6 @@
-# Saguaro Logger 
+# Saguaro JSON 
 
-_logger for iOS/OSX applications_
+_JSON parse and stringify for iOS/OSX/Swift 2.0 applications_
 
 <a href="https://developer.apple.com/swift/"><img src="http://raincitysoftware.com/swift2-badge.png" alt="" width="65" height="20" border="0" /></a>
 [![Build Status](https://travis-ci.org/darrylwest/saguaro-json.svg?branch=master)](https://travis-ci.org/darrylwest/saguaro-json)
@@ -14,10 +14,7 @@ _logger for iOS/OSX applications_
 
 ### The simplest uses case:
 
-### A simple logger that writes to NSLog:
 
-
-### Using the log manager to control a pool of loggers and appenders:
 
 ## License: MIT
 
