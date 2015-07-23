@@ -21,4 +21,4 @@ _JSON parse and stringify for iOS/OSX/Swift 2.0 applications_
 Use as you wish.  Please fork and help out if you can.
 
 - - -
-darryl.west@raincitysoftware.com | Version 00.90.11
+darryl.west@raincitysoftware.com | Version 00.90.12

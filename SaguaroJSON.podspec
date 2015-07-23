@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = "SaguaroJSON"
-  s.version     = "0.90.11"
+  s.version     = "0.90.12"
   s.summary     = "JSON parser for iOS/OSX applications written in Swift 2.0"
   s.homepage    = "https://github.com/darrylwest/saguaro-json"
   s.license     = { :type => "MIT" }
