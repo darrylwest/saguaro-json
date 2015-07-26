@@ -1,0 +1,50 @@
+{
+    "status": "ok",
+    "ts": 1435866398489,
+    "version": "1.0",
+    "user": {
+        "id": "782eac7c109311e59549f31803fe7988",
+        "dateCreated": "2015-06-12T00:00:00.000Z",
+        "lastUpdated": "2015-07-02T19:46:38.487Z",
+        "version": 224,
+        "salesOrg": {
+            "id": "0718085a109611e59d35034011efdf8c",
+            "dateCreated": "2015-06-12T00:00:00.000Z",
+            "lastUpdated": "2015-06-23T23:24:54.756Z",
+            "version": 0,
+            "name": "Oracle",
+            "url": "https://oracle.com",
+            "assets": "assets.visualeq.com/oracle",
+            "status": "active",
+            "contactInfo": {
+                "id": "0718085a109611e59d35034011efdf8c",
+                "dateCreated": "2015-06-12T00:00:00.000Z",
+                "lastUpdated": "2015-06-23T23:24:54.818Z",
+                "version": 0,
+                "givenName": "Oracle Corp",
+                "emails": [ { "primary":"support@oracle.org" } ],
+                "phones": [ { "primary":"555-234-4432" } ],
+                "locations": [],
+                "mailing": [ { "primary":"1234 State Street, Redwood Shores, 94005" } ]
+            }
+        },
+        "username": "test.salesrep@visualeq.com",
+        "session": "2ded5713-6e20-4e56-b4aa-337b53dec1b1",
+        "groups": [ "Western Region" ],
+        "reportsTo": "nobody",
+        "roles": [ "SalesRep" ],
+        "status": "active",
+        "contactInfo": {
+            "id": "782eac7c109311e59549f31803fe7988",
+            "dateCreated": "2015-06-12T00:00:00.000Z",
+            "lastUpdated": "2015-06-23T23:24:54.817Z",
+            "version": 0,
+            "givenName": "Joe",
+            "familyName": "Applegate",
+            "emails": [ { "work":"test.salesrep@gmail.net" }, { "home":"test.salesrep@visualeq.com" } ],
+            "phones": [ { "primary":"555-234-1234" } ],
+            "mailing": [],
+            "locations": []
+        }
+    }
+}

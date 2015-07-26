@@ -12,6 +12,11 @@
 		BA272B531B48430200EC08B9 /* TestDataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA272B521B48430200EC08B9 /* TestDataset.swift */; };
 		BAC669C51B483FC900194919 /* SaguaroJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = BAC669C41B483FC900194919 /* SaguaroJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BAC669CC1B483FCA00194919 /* SaguaroJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC669C11B483FC900194919 /* SaguaroJSON.framework */; };
+		BACABABE1B6539A700C86565 /* JSONResponseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACABABD1B6539A700C86565 /* JSONResponseWrapper.swift */; };
+		BACABAC01B6539F800C86565 /* JSONResponseWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACABABF1B6539F700C86565 /* JSONResponseWrapperTests.swift */; };
+		BACABAC21B653AD200C86565 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACABAC11B653AD200C86565 /* JSONTests.swift */; };
+		BACABAC41B653B0E00C86565 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACABAC31B653B0E00C86565 /* JSON.swift */; };
+		BACABAC61B653F1200C86565 /* user-response.json in Resources */ = {isa = PBXBuildFile; fileRef = BACABAC51B653F1200C86565 /* user-response.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +38,11 @@
 		BAC669C61B483FC900194919 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAC669CB1B483FCA00194919 /* SaguaroJSONTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaguaroJSONTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAC669D21B483FCA00194919 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BACABABD1B6539A700C86565 /* JSONResponseWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseWrapper.swift; sourceTree = "<group>"; };
+		BACABABF1B6539F700C86565 /* JSONResponseWrapperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseWrapperTests.swift; sourceTree = "<group>"; };
+		BACABAC11B653AD200C86565 /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
+		BACABAC31B653B0E00C86565 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		BACABAC51B653F1200C86565 /* user-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-response.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +88,8 @@
 				BAC669C41B483FC900194919 /* SaguaroJSON.h */,
 				BAC669C61B483FC900194919 /* Info.plist */,
 				BA272B4E1B4841B100EC08B9 /* JNParser.swift */,
+				BACABABD1B6539A700C86565 /* JSONResponseWrapper.swift */,
+				BACABAC31B653B0E00C86565 /* JSON.swift */,
 			);
 			path = SaguaroJSON;
 			sourceTree = "<group>";
@@ -88,6 +100,9 @@
 				BAC669D21B483FCA00194919 /* Info.plist */,
 				BA272B501B48422E00EC08B9 /* JNParserTests.swift */,
 				BA272B521B48430200EC08B9 /* TestDataset.swift */,
+				BACABABF1B6539F700C86565 /* JSONResponseWrapperTests.swift */,
+				BACABAC11B653AD200C86565 /* JSONTests.swift */,
+				BACABAC51B653F1200C86565 /* user-response.json */,
 			);
 			path = SaguaroJSONTests;
 			sourceTree = "<group>";
@@ -190,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACABAC61B653F1200C86565 /* user-response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +216,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BACABAC41B653B0E00C86565 /* JSON.swift in Sources */,
+				BACABABE1B6539A700C86565 /* JSONResponseWrapper.swift in Sources */,
 				BA272B4F1B4841B100EC08B9 /* JNParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,7 +227,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA272B531B48430200EC08B9 /* TestDataset.swift in Sources */,
+				BACABAC01B6539F800C86565 /* JSONResponseWrapperTests.swift in Sources */,
 				BA272B511B48422E00EC08B9 /* JNParserTests.swift in Sources */,
+				BACABAC21B653AD200C86565 /* JSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

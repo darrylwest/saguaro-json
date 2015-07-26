@@ -14,11 +14,19 @@ _JSON parse and stringify for iOS/OSX/Swift 2.0 applications_
 
 ### The simplest uses case:
 
+let jsonString = ... // some json string
+let map = JSON.parse( jsonString ) // returns [String:AnyObject]?
 
+...
+
+let map = someObject.toMap() // [String:AnyObject]
+let jsonString = JSON.stringify( map )
+
+_See the unit tests and test fixtures for more examples..._
 
 ## License: MIT
 
 Use as you wish.  Please fork and help out if you can.
 
 - - -
-darryl.west@raincitysoftware.com | Version 00.90.12
+darryl.west@raincitysoftware.com | Version 00.90.13

@@ -38,8 +38,6 @@ class JNParserTests: XCTestCase {
     }
 
     func testParse() {
-        let dataset = TestDataset()
-
         let complexMap = dataset.createComplexJSONMap()
 
         // print( doiMap )
@@ -103,49 +101,6 @@ class JNParserTests: XCTestCase {
         let dt = jnparser.dateFromString(ds)
 
         XCTAssertNil(dt, "should not be nil")
-    }
-
-    func testJSONReponseWrapper() {
-        let ts = jnparser.createUnixTimestamp()
-        let jsonObject:[String:AnyObject] = [
-            "status":"ok",
-            "version":"1.0",
-            "ts": ts,
-            "model":dataset.createDocumentIdentifierMap()
-        ]
-
-        print("json: \( jsonObject )")
-
-        guard let wrapper = JSONResponseWrapper( jsonObject: jsonObject ) else {
-            XCTFail("wrapper parser failed")
-            return
-        }
-
-        XCTAssertEqual( wrapper.status, "ok", "wrapper status should be ok")
-        XCTAssertEqual( wrapper.ts, ts, "wrapper time stamp should match")
-        XCTAssertEqual( wrapper.version, "1.0", "version match")
-    }
-
-    func testJSONResponseWrapperFailed() {
-        let ts = jnparser.createUnixTimestamp()
-        let jsonObject:[String:AnyObject] = [
-            "status":"failed",
-            "version":"1.0",
-            "ts": ts,
-            "reason":"the reason it failed"
-        ]
-
-        print("json: \( jsonObject )")
-
-        guard let wrapper = JSONResponseWrapper( jsonObject: jsonObject ) else {
-            XCTFail("wrapper parser failed")
-            return
-        }
-
-        XCTAssertEqual( wrapper.status, "failed", "wrapper status should be ok")
-        XCTAssertEqual( wrapper.ts, ts, "wrapper time stamp should match")
-        XCTAssertEqual( wrapper.version, "1.0", "version match")
-        XCTAssertEqual( wrapper.reason, "the reason it failed", "reason match")
     }
 
     func testColorFromMap() {
