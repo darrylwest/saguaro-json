@@ -79,7 +79,8 @@ class TestDataset {
             "job1":"my job 1",
             "job2":"my second job",
             "job 3":"my third job",
-            "color":UIColor(red: 100.0/255, green:110.0/255, blue:120.0/255, alpha: 1.0)
+            "color":UIColor(red: 100.0/255, green:110.0/255, blue:120.0/255, alpha: 1.0),
+            "rect":JNRect( rect:CGRectMake( -44, 23, 400, 200) )
         ]
 
         let obj:[String:AnyObject] = [

@@ -22,6 +22,44 @@ public protocol JSONParserType {
     func parse(jsonString: String) -> [String:AnyObject]?
 }
 
+public class JNRect {
+    let x:Double
+    let y:Double
+    let width:Double
+    let height:Double
+
+    public init(x:Double, y:Double, width:Double, height:Double) {
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+    }
+
+    public init(rect:CGRect) {
+        self.x = Double( rect.origin.x )
+        self.y = Double( rect.origin.y )
+        self.width = Double( rect.width )
+        self.height = Double( rect.height )
+    }
+
+    public func toCGRect() -> CGRect {
+        return CGRectMake(CGFloat( x ), CGFloat( y ), CGFloat( width ), CGFloat( height ))
+    }
+
+    /// convert a CGRect to object or return nil
+    public func toMap() -> [String:Double] {
+        let map = [
+            "x":x,
+            "y":y,
+            "width":width,
+            "height":height
+        ]
+
+        return map
+    }
+
+}
+
 public struct JNDateFormatter: JSONDateType {
     private let formatter:NSDateFormatter
 
@@ -133,6 +171,20 @@ public struct JNParser: JSONParserType, JSONDateType {
         return UIColor(red:r, green:g, blue:b, alpha:a)
     }
 
+
+    /// convert an object stored as a JNRect to a cgrect
+    public func rectFromMap(map:[String:AnyObject]) -> CGRect? {
+        guard let x = map[ "x" ] as? CGFloat,
+            let y = map[ "y" ] as? CGFloat,
+            let width = map[ "width" ] as? CGFloat,
+            let height = map[ "height" ] as? CGFloat else {
+
+            return nil
+        }
+
+        return CGRectMake(x, y, width, height)
+    }
+
     /// prepare the map by converting NSDate and UIColor
     public func prepareObjectMap(map:[String:AnyObject]) -> [String:AnyObject] {
         var obj = [String:AnyObject]()
@@ -148,8 +200,8 @@ public struct JNParser: JSONParserType, JSONDateType {
                 obj[ key ] = self.prepareObjectMap( objMap )
             case let objArray as [AnyObject]:
                 obj[ key ] = self.prepareObjectArray( objArray )
-            // case let rect as CGRect:
-                // obj[ key ] = rectToMap( rect )
+            case let rect as JNRect:
+                obj[ key ] = rect.toMap()
             default:
                 obj[ key ] = value
             }
