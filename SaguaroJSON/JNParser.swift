@@ -148,6 +148,8 @@ public struct JNParser: JSONParserType, JSONDateType {
                 obj[ key ] = self.prepareObjectMap( objMap )
             case let objArray as [AnyObject]:
                 obj[ key ] = self.prepareObjectArray( objArray )
+            // case let rect as CGRect:
+                // obj[ key ] = rectToMap( rect )
             default:
                 obj[ key ] = value
             }
