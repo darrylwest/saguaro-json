@@ -11,15 +11,19 @@ import Foundation
 /// JSONResponseWrapper - parse and generate the standard wrapper used to exchange JSON data
 public struct JSONResponseWrapper: CustomStringConvertible {
     public let status:String
-    public let ts:Int
+    public let ts:Double
     public let version:String
     public private(set) var reason:String = ""
     public let isOk:Bool
 
     public init?(jsonObject: [String:AnyObject]) {
         guard let status = jsonObject[ "status" ] as? String,
-            let version = jsonObject[ "version" ] as? String,
-            let ts = jsonObject[ "ts" ] as? Int else { return nil }
+            let version = jsonObject[ "version" ] as? String else { return nil }
+
+        guard let ts = jsonObject[ "ts" ] as? Double else {
+            NSLog("ERROR! unable to parse unix timestamp")
+            return nil
+        }
 
         self.status = status
         self.version = version

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias UnixTimestamp = Int
+public typealias UnixTimestamp = Double
 
 public protocol JSONDateType {
     func dateFromString(dateString: String) -> NSDate?
@@ -76,7 +76,7 @@ public struct JNDateFormatter: JSONDateType {
     }
 
     public func createUnixTimestamp() -> UnixTimestamp {
-        return Int( NSDate().timeIntervalSince1970 * 1000 )
+        return Double( NSDate().timeIntervalSince1970 * 1000 )
     }
 
     init() {
