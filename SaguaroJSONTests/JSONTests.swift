@@ -25,25 +25,25 @@ class JSONTests: XCTestCase {
         }
 
         print( map )
-        XCTAssertEqual( map["status"] as! String, JSONResponseWrapper.Ok, "shoud be ok")
-        XCTAssertEqual( map["version"] as! String, "1.0", "version")
-        XCTAssertEqual( map["ts"] as! UnixTimestamp, 1435866398489, "timestamp")
+        XCTAssertEqual( map["status"] as? String, JSONResponseWrapper.Ok, "shoud be ok")
+        XCTAssertEqual( map["version"] as? String, "1.0", "version")
+        XCTAssertEqual( map["ts"] as? UnixTimestamp, 1435866398489, "timestamp")
 
         guard let user = map["user"] as? [String:AnyObject] else {
             XCTFail("could not read user node")
             return
         }
 
-        XCTAssertEqual(user["id"] as! String, "782eac7c109311e59549f31803fe7988", "id check")
-        XCTAssertEqual(user["status"] as! String, "active", "status")
+        XCTAssertEqual(user["id"] as? String, "782eac7c109311e59549f31803fe7988", "id check")
+        XCTAssertEqual(user["status"] as? String, "active", "status")
 
         guard let org = user["salesOrg"] as? [String:AnyObject] else {
             XCTFail("could not parse sales org from user: \( user )")
             return
         }
 
-        XCTAssertEqual(org["id"] as! String, "0718085a109611e59d35034011efdf8c", "id check")
-        XCTAssertEqual(org["status"] as! String, "active", "status")
+        XCTAssertEqual(org["id"] as? String, "0718085a109611e59d35034011efdf8c", "id check")
+        XCTAssertEqual(org["status"] as? String, "active", "status")
     }
 
     func testStringify() {
@@ -61,7 +61,7 @@ class JSONTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(obj["name"] as! String, map["name"] as! String, "id match")
+        XCTAssertEqual(obj["name"] as? String, map["name"] as? String, "id match")
 
 
     }

@@ -98,11 +98,11 @@ class TestDataset {
     }
 
     var fixturePath:String {
-        var parts = split(__FILE__.characters) { $0 == "/" }.map { String($0) }
+        var parts = __FILE__.componentsSeparatedByString("/")
 
         parts.removeLast()
 
-        return "/" + "/".join( parts )
+        return "/" + parts.joinWithSeparator("/")
     }
 
     func readFixtureFile(filename:String) -> String? {
