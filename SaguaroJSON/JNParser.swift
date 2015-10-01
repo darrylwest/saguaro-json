@@ -64,7 +64,9 @@ public struct JNDateFormatter: JSONDateType {
     private let formatter:NSDateFormatter
 
     public func dateFromString(dateString:String) -> NSDate? {
-        guard let date = formatter.dateFromString( dateString ) as NSDate! else {
+        let dts = dateString.stringByReplacingOccurrencesOfString("+0000", withString: "Z")
+        
+        guard let date = formatter.dateFromString( dts ) as NSDate! else {
             return nil
         }
 
