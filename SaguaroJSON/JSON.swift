@@ -9,7 +9,8 @@
 import Foundation
 
 public struct JSON {
-    private static let jnparser = JNParser()
+    public static let DateFormatString = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    public static let jnparser = JNParser()
 
     public static func stringify(map:[String:AnyObject], pretty:Bool? = false) -> String? {
         return jnparser.stringify( map, pretty: pretty! )

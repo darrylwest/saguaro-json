@@ -50,7 +50,7 @@ public struct JSONResponseWrapper: CustomStringConvertible {
     }
 
     static public func createWrapper(key key:String, value:AnyObject) -> [String:AnyObject] {
-        let formatter = JNParser().formatter
+        let formatter = JSON.jnparser.formatter
         let wrapper:[String:AnyObject] = [
             "status":JSONResponseWrapper.Ok,
             "ts":formatter.createUnixTimestamp(),

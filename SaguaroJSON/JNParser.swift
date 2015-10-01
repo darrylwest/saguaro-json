@@ -81,7 +81,7 @@ public struct JNDateFormatter: JSONDateType {
 
     init() {
         formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        formatter.dateFormat = JSON.DateFormatString
         formatter.timeZone = NSTimeZone(abbreviation: "UTC")
     }
 }

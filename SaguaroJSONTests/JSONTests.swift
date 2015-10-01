@@ -13,6 +13,15 @@ class JSONTests: XCTestCase {
     let dataset = TestDataset()
     let jnparser = JNParser()
 
+    func testInstance() {
+        let fs = JSON.DateFormatString
+        let parser = JSON.jnparser
+
+        XCTAssertNotNil( fs )
+        XCTAssertNotNil( parser )
+
+    }
+
     func testParse() {
         guard let jsonString = dataset.readFixtureFile("user-response.json") else {
             XCTFail( "failed to read json file" )

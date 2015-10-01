@@ -71,7 +71,7 @@ class TestDataset {
         let name = "farley"
         let age = 42
         let height = 4.3
-        let created = jnparser.dateFromString( "2015-06-18T09:47:49.427+0000" )!
+        let created = jnparser.dateFromString( "2015-06-18T09:47:49.427Z" )!
 
         var model = createDocumentIdentifierMap()
         model[ "names" ] = ["jon","jane","joe"]

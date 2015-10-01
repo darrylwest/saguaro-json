@@ -22,7 +22,7 @@ class JNParserTests: XCTestCase {
         XCTAssertNotNil(jstr, "should not be nil")
 
         // not a great test, but it should return predictable results...
-        XCTAssert(jstr.characters.count >= 862, "should match the character count")
+        XCTAssert(jstr.characters.count >= 800, "should match the character count")
 
         let jsonObject = jnparser.parse( jstr )
         print( jsonObject )
@@ -38,7 +38,7 @@ class JNParserTests: XCTestCase {
         XCTAssertNotNil(jstr, "should not be nil")
 
         // not a great test, but it should return predictable non-pretty length...
-        XCTAssert(jstr.characters.count >= 567, "should match the character count")
+        XCTAssert(jstr.characters.count >= 500, "should match the character count")
 
         let jsonObject = jnparser.parse( jstr )
         print( jsonObject )
