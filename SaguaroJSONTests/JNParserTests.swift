@@ -73,19 +73,18 @@ class JNParserTests: XCTestCase {
 
         let calendar = NSCalendar.currentCalendar()
         guard let date = calendar.dateFromComponents( parts ) else {
-            XCTFail("should create a date string")
-            return
+            return XCTFail("should create a date string")
         }
 
         guard let ds:String = jnparser.stringFromDate( date ) else {
-            XCTFail("should create a date string")
-            return
+            return XCTFail("should create a date string")
         }
 
         guard let dt = jnparser.dateFromString( ds ) else {
-            XCTFail("should create a date from json string")
-            return
+            return XCTFail("should create a date from json string")
         }
+
+        print("ds: \( ds ) dt: \( dt )")
 
         XCTAssertNotNil(dt, "should not be nil")
 
@@ -112,39 +111,70 @@ class JNParserTests: XCTestCase {
     }
 
     func testColorToMap() {
-        let color = UIColor.grayColor()
-        let map = jnparser.colorToMap( color )
+        var count = 10
+        while (--count > 0) {
+            let n = Double( count )
+            let r = CGFloat( 0.111 + (n / 15) )
+            let g = CGFloat( 0.999 - (n / 14) )
+            let b = CGFloat( 0.9 - (n / 10) )
+            let a = CGFloat( 0.25 + (n / 50) )
 
-        XCTAssertNotNil(map, "should not be nil")
+            let color = UIColor(red: r, green: g, blue: b, alpha: a)
+            let map = jnparser.colorToMap( color )
 
-        guard let red = map[ RGBAType.red.rawValue ],
-                let green = map[ RGBAType.green.rawValue ],
-                let blue = map[ RGBAType.blue.rawValue ],
-                let alpha = map[ RGBAType.alpha.rawValue ] else {
-            return XCTFail("should have a red color")
+            print( map )
+
+            XCTAssertNotNil(map, "should not be nil")
+
+            guard let red = map[ RGBAType.red.rawValue ],
+                    let green = map[ RGBAType.green.rawValue ],
+                    let blue = map[ RGBAType.blue.rawValue ],
+                    let alpha = map[ RGBAType.alpha.rawValue ] else {
+                return XCTFail("should have a red color")
+            }
+
+            XCTAssertEqual(CGFloat( red ), r, "red")
+            XCTAssertEqual(CGFloat( green ), g, "green")
+            XCTAssertEqual(CGFloat( blue ), b, "blue")
+            XCTAssertEqual(CGFloat( alpha ), a, "alpha")
         }
-
-        XCTAssertEqual(red, 0.5, "red")
-        XCTAssertEqual(green, 0.5, "green")
-        XCTAssertEqual(blue, 0.5, "blue")
-        XCTAssertEqual(alpha, 1.0, "alpha")
     }
 
     func testColorFromMap() {
-        let map = [
-            RGBAType.red.rawValue:0.333,
-            RGBAType.green.rawValue:0.666,
-            RGBAType.blue.rawValue:0.9,
-            RGBAType.alpha.rawValue:0.5
-        ]
-        
-        guard let color = jnparser.colorFromMap( map ) else {
-            XCTFail("should convert map to color")
-            return
+
+        var count = 10
+        while (--count > 0) {
+            let n = Double( count )
+            let red = 0.111 + (n / 19)
+            let green = 0.999 - (n / 13)
+            let blue = 0.9 - (n / 100)
+            let alpha = 0.25 + (n / 38)
+
+            let map = [
+                RGBAType.red.rawValue: red,
+                RGBAType.green.rawValue: green,
+                RGBAType.blue.rawValue: blue,
+                RGBAType.alpha.rawValue: alpha
+            ]
+            
+            guard let color = jnparser.colorFromMap( map ) else {
+                XCTFail("should convert map to color")
+                return
+            }
+            
+            print( color )
+            var r:CGFloat = 0.0
+            var g:CGFloat = 0.0
+            var b:CGFloat = 0.0
+            var a:CGFloat = 0.0
+
+            color.getRed(&r, green: &g, blue: &b, alpha: &a)
+            XCTAssertEqual(r, CGFloat( red ), "red")
+            XCTAssertEqual(g, CGFloat( green ), "green")
+            XCTAssertEqual(b, CGFloat( blue ), "blue")
+            XCTAssertEqual(a, CGFloat( alpha ), "alpha")
         }
-        
-        print( color )
-        
+
     }
 
     func testCGRectToMap() {
