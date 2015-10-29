@@ -101,6 +101,16 @@ class JNParserTests: XCTestCase {
         XCTAssertEqual(parsedParts.minute, parts.minute, "should match")
         XCTAssertEqual(parsedParts.second, parts.second, "should match")
     }
+    
+    func testPaserNonStandardDateFromString() {
+        let ds1 = "2015-02-12T23:15:45.944+0000"
+        
+        guard let dt = jnparser.dateFromString( ds1 ) else {
+            return XCTFail("could not parse date from \( ds1 )")
+        }
+        
+        print("ds: \( ds1 ) dt: \( dt )")
+    }
 
     func testParseBadDateFromJSONString() {
         let ds = "2015/06/18 00:47:49"
