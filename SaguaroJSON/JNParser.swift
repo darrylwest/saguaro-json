@@ -227,7 +227,7 @@ public struct JNParser: JSONParserType, JSONDateType {
         let obj = prepareObjectMap( map )
 
         if (!NSJSONSerialization.isValidJSONObject(obj)) {
-            NSLog("\( __FUNCTION__ ): serialization validation error for object: \( obj )")
+            NSLog("\( #function ): serialization validation error for object: \( obj )")
             assert(false, "serialization error")
             return nil
         }
@@ -247,7 +247,7 @@ public struct JNParser: JSONParserType, JSONDateType {
             }
 
         } catch {
-            NSLog( "\( __FUNCTION__ ): stringify could not serialize data with json object: \( obj )")
+            NSLog( "\( #function ): stringify could not serialize data with json object: \( obj )")
             assert(false, "serialization error")
         }
 
@@ -257,7 +257,7 @@ public struct JNParser: JSONParserType, JSONDateType {
     /// parse the string and return map or nil
     public func parse(jsonString: String) -> [String:AnyObject]? {
         guard let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) else {
-            NSLog("\( __FUNCTION__ ): parse error in json string: \( jsonString )")
+            NSLog("\( #function ): parse error in json string: \( jsonString )")
             return nil
         }
 
@@ -266,7 +266,7 @@ public struct JNParser: JSONParserType, JSONDateType {
 
             return (obj as! [String : AnyObject])
         } catch {
-            NSLog("\( __FUNCTION__ ): parse failed on json string: \( jsonString )")
+            NSLog("\( #function ): parse failed on json string: \( jsonString )")
             return nil
         }
     }

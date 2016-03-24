@@ -34,7 +34,7 @@ public struct DocumentIdentifier: CustomStringConvertible {
     // invoke this to bump the last updated and version values
     mutating func updateVersion() {
         lastUpdated = NSDate()
-        ++version
+        version += 1
     }
     
     public var description:String {
@@ -98,7 +98,7 @@ class TestDataset {
     }
 
     var fixturePath:String {
-        var parts = __FILE__.componentsSeparatedByString("/")
+        var parts = #file.componentsSeparatedByString("/")
 
         parts.removeLast()
 

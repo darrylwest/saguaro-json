@@ -121,8 +121,8 @@ class JNParserTests: XCTestCase {
     }
 
     func testColorToMap() {
-        var count = 10
-        while (--count > 0) {
+        var count = 9
+        while (count > 0) {
             let n = Double( count )
             let r = CGFloat( 0.111 + (n / 15) )
             let g = CGFloat( 0.999 - (n / 14) )
@@ -147,13 +147,15 @@ class JNParserTests: XCTestCase {
             XCTAssertEqual(CGFloat( green ), g, "green")
             XCTAssertEqual(CGFloat( blue ), b, "blue")
             XCTAssertEqual(CGFloat( alpha ), a, "alpha")
+
+            count -= 1;
         }
     }
 
     func testColorFromMap() {
 
-        var count = 10
-        while (--count > 0) {
+        var count = 9
+        while (count > 0) {
             let n = Double( count )
             let red = 0.111 + (n / 19)
             let green = 0.999 - (n / 13)
@@ -183,6 +185,8 @@ class JNParserTests: XCTestCase {
             XCTAssertEqual(g, CGFloat( green ), "green")
             XCTAssertEqual(b, CGFloat( blue ), "blue")
             XCTAssertEqual(a, CGFloat( alpha ), "alpha")
+
+            count -= 1;
         }
 
     }
