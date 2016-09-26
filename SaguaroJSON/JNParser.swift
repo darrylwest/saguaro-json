@@ -11,15 +11,15 @@ import Foundation
 public typealias UnixTimestamp = Double
 
 public protocol JSONDateType {
-    func dateFromString(dateString: String) -> NSDate?
-    func stringFromDate(date:NSDate) -> String
+    func dateFromString(_ dateString: String) -> Date?
+    func stringFromDate(_ date:Date) -> String
     func createUnixTimestamp() -> UnixTimestamp
 }
 
 public protocol JSONParserType {
-    func parseDate(obj:AnyObject?) -> NSDate?
-    func stringify(map:[String:AnyObject]) -> String?
-    func parse(jsonString: String) -> [String:AnyObject]?
+    func parseDate(_ obj:AnyObject?) -> Date?
+    func stringify(_ map:[String:AnyObject]) -> String?
+    func parse(_ jsonString: String) -> [String:AnyObject]?
 }
 
 public class JNRect {
@@ -43,7 +43,7 @@ public class JNRect {
     }
 
     public func toCGRect() -> CGRect {
-        return CGRectMake(CGFloat( x ), CGFloat( y ), CGFloat( width ), CGFloat( height ))
+        return CGRect(x: CGFloat( x ), y: CGFloat( y ), width: CGFloat( width ), height: CGFloat( height ))
     }
 
     /// convert a CGRect to object or return nil
@@ -61,30 +61,30 @@ public class JNRect {
 }
 
 public struct JNDateFormatter: JSONDateType {
-    private let formatter:NSDateFormatter
+    fileprivate let formatter:DateFormatter
 
-    public func dateFromString(dateString:String) -> NSDate? {
-        let dts = dateString.stringByReplacingOccurrencesOfString("+0000", withString: "Z")
+    public func dateFromString(_ dateString:String) -> Date? {
+        let dts = dateString.replacingOccurrences(of: "+0000", with: "Z")
         
-        guard let date = formatter.dateFromString( dts ) as NSDate! else {
+        guard let date = formatter.date( from: dts ) as Date! else {
             return nil
         }
 
         return date
     }
 
-    public func stringFromDate(date:NSDate) -> String {
-        return formatter.stringFromDate( date )
+    public func stringFromDate(_ date:Date) -> String {
+        return formatter.string( from: date )
     }
 
     public func createUnixTimestamp() -> UnixTimestamp {
-        return Double( NSDate().timeIntervalSince1970 * 1000 )
+        return Double( Date().timeIntervalSince1970 * 1000 )
     }
 
     init() {
-        formatter = NSDateFormatter()
+        formatter = DateFormatter()
         formatter.dateFormat = JSON.DateFormatString
-        formatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
     }
 }
 
@@ -102,10 +102,10 @@ public struct JNParser: JSONParserType, JSONDateType {
         formatter = JNDateFormatter()
     }
 
-    public func parseDate(obj:AnyObject?) -> NSDate? {
+    public func parseDate(_ obj:AnyObject?) -> Date? {
         switch obj {
-        case is NSDate:
-            return obj as? NSDate
+        case is Date:
+            return obj as? Date
         case is String:
             return formatter.dateFromString( obj as! String )
         default:
@@ -113,26 +113,26 @@ public struct JNParser: JSONParserType, JSONDateType {
         }
     }
 
-    public func dateFromString(dateString: String) -> NSDate? {
+    public func dateFromString(_ dateString: String) -> Date? {
         return formatter.dateFromString( dateString )
     }
 
-    public func stringFromDate(date:NSDate) -> String {
+    public func stringFromDate(_ date:Date) -> String {
         return formatter.stringFromDate(date)
     }
 
-    public func prepareObjectArray(list:[AnyObject]) -> [AnyObject] {
+    public func prepareObjectArray(_ list:[AnyObject]) -> [AnyObject] {
         var array = [AnyObject]()
 
         for value in list {
 
             switch value {
-            case let date as NSDate:
-                array.append( stringFromDate( date ) )
+            case let date as Date:
+                array.append( stringFromDate( date ) as AnyObject )
             case let objMap as [String:AnyObject]:
-                array.append( self.prepareObjectMap( objMap ))
+                array.append( self.prepareObjectMap( objMap ) as AnyObject)
             case let objArray as [AnyObject]:
-                array.append( self.prepareObjectArray( objArray ))
+                array.append( self.prepareObjectArray( objArray ) as AnyObject)
             default:
                 array.append( value )
             }
@@ -142,7 +142,7 @@ public struct JNParser: JSONParserType, JSONDateType {
     }
 
     /// convert a UIColor to rbga map
-    public func colorToMap(color:UIColor) -> [String:Double] {
+    public func colorToMap(_ color:UIColor) -> [String:Double] {
         var r:CGFloat = 0.0
         var g:CGFloat = 0.0
         var b:CGFloat = 0.0
@@ -161,7 +161,7 @@ public struct JNParser: JSONParserType, JSONDateType {
     }
 
     /// convert a map to UIColor object or return nil
-    public func colorFromMap(colorNode:[String:AnyObject]) -> UIColor? {
+    public func colorFromMap(_ colorNode:[String:AnyObject]) -> UIColor? {
         guard let r = colorNode[ RGBAType.red.rawValue ] as? CGFloat,
             let g = colorNode[ RGBAType.green.rawValue ] as? CGFloat,
             let b = colorNode[ RGBAType.blue.rawValue ] as? CGFloat,
@@ -175,7 +175,7 @@ public struct JNParser: JSONParserType, JSONDateType {
 
 
     /// convert an object stored as a JNRect to a cgrect
-    public func rectFromMap(map:[String:AnyObject]) -> CGRect? {
+    public func rectFromMap(_ map:[String:AnyObject]) -> CGRect? {
         guard let x = map[ "x" ] as? CGFloat,
             let y = map[ "y" ] as? CGFloat,
             let width = map[ "width" ] as? CGFloat,
@@ -184,26 +184,26 @@ public struct JNParser: JSONParserType, JSONDateType {
             return nil
         }
 
-        return CGRectMake(x, y, width, height)
+        return CGRect(x: x, y: y, width: width, height: height)
     }
 
     /// prepare the map by converting NSDate and UIColor
-    public func prepareObjectMap(map:[String:AnyObject]) -> [String:AnyObject] {
+    public func prepareObjectMap(_ map:[String:AnyObject]) -> [String:AnyObject] {
         var obj = [String:AnyObject]()
 
         // walk the object to convert all dates to strings: won't handle an array of dates, but that's unlikely...
         for (key, value) in map {
             switch value {
             case let color as UIColor:
-                obj[ key ] = colorToMap( color )
-            case let date as NSDate:
-                obj[ key ] = stringFromDate( date )
+                obj[ key ] = colorToMap( color ) as AnyObject?
+            case let date as Date:
+                obj[ key ] = stringFromDate( date ) as AnyObject?
             case let objMap as [String:AnyObject]:
-                obj[ key ] = self.prepareObjectMap( objMap )
+                obj[ key ] = self.prepareObjectMap( objMap ) as AnyObject?
             case let objArray as [AnyObject]:
-                obj[ key ] = self.prepareObjectArray( objArray )
+                obj[ key ] = self.prepareObjectArray( objArray ) as AnyObject?
             case let rect as JNRect:
-                obj[ key ] = rect.toMap()
+                obj[ key ] = rect.toMap() as AnyObject?
             default:
                 obj[ key ] = value
             }
@@ -218,15 +218,15 @@ public struct JNParser: JSONParserType, JSONDateType {
     }
 
     /// given a map<string:anyobject> convert to a json string
-    public func stringify(map: [String : AnyObject]) -> String? {
+    public func stringify(_ map: [String : AnyObject]) -> String? {
         return self.stringify(map, pretty: false)
     }
 
     /// given a map<string:anyobject> convert to a json string
-    public func stringify(map:[String:AnyObject], pretty:Bool? = false) -> String? {
+    public func stringify(_ map:[String:AnyObject], pretty:Bool? = false) -> String? {
         let obj = prepareObjectMap( map )
 
-        if (!NSJSONSerialization.isValidJSONObject(obj)) {
+        if (!JSONSerialization.isValidJSONObject(obj)) {
             NSLog("\( #function ): serialization validation error for object: \( obj )")
             assert(false, "serialization error")
             return nil
@@ -234,15 +234,15 @@ public struct JNParser: JSONParserType, JSONDateType {
 
         do {
             // this mess is to get around the 2.0 way of handling options
-            let data:NSData
+            let data:Data
 
             if pretty! {
-                data = try NSJSONSerialization.dataWithJSONObject(obj, options: NSJSONWritingOptions.PrettyPrinted)
+                data = try JSONSerialization.data(withJSONObject: obj, options: JSONSerialization.WritingOptions.prettyPrinted)
             } else {
-                data = try NSJSONSerialization.dataWithJSONObject(obj, options: [])
+                data = try JSONSerialization.data(withJSONObject: obj, options: [])
             }
 
-            if let json = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            if let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                 return json as String
             }
 
@@ -255,14 +255,14 @@ public struct JNParser: JSONParserType, JSONDateType {
     }
 
     /// parse the string and return map or nil
-    public func parse(jsonString: String) -> [String:AnyObject]? {
-        guard let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) else {
+    public func parse(_ jsonString: String) -> [String:AnyObject]? {
+        guard let data = jsonString.data(using: String.Encoding.utf8) else {
             NSLog("\( #function ): parse error in json string: \( jsonString )")
             return nil
         }
 
         do {
-            let obj = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers )
+            let obj = try JSONSerialization.jsonObject(with: data, options: .mutableContainers )
 
             return (obj as! [String : AnyObject])
         } catch {

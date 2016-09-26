@@ -15,11 +15,11 @@ class JSONResponseWrapperTests: XCTestCase {
 
     func testJSONReponseWrapper() {
         let ts = jnparser.createUnixTimestamp()
-        let jsonObject:[String:AnyObject] = [
-            "status":"ok",
-            "version":"1.0",
-            "ts": ts,
-            "model":dataset.createDocumentIdentifierMap()
+        let jsonObject:[String: AnyObject] = [
+            "status": "ok" as AnyObject,
+            "version": "1.0" as AnyObject,
+            "ts": ts as AnyObject,
+            "model": dataset.createDocumentIdentifierMap() as AnyObject
         ]
 
         print("json: \( jsonObject )")
@@ -37,10 +37,10 @@ class JSONResponseWrapperTests: XCTestCase {
     func testJSONResponseWrapperFailed() {
         let ts = jnparser.createUnixTimestamp()
         let jsonObject:[String:AnyObject] = [
-            "status":"failed",
-            "version":"1.0",
-            "ts": ts,
-            "reason":"the reason it failed"
+            "status": "failed" as AnyObject,
+            "version": "1.0" as AnyObject,
+            "ts": ts as AnyObject,
+            "reason": "the reason it failed" as AnyObject
         ]
 
         print("json: \( jsonObject )")
