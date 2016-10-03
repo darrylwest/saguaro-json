@@ -195,15 +195,15 @@ public struct JNParser: JSONParserType, JSONDateType {
         for (key, value) in map {
             switch value {
             case let color as UIColor:
-                obj[ key ] = colorToMap( color ) as AnyObject?
+                obj[ key ] = colorToMap( color ) as AnyObject
             case let date as Date:
-                obj[ key ] = stringFromDate( date ) as AnyObject?
+                obj[ key ] = stringFromDate( date ) as AnyObject
             case let objMap as [String:AnyObject]:
-                obj[ key ] = self.prepareObjectMap( objMap ) as AnyObject?
+                obj[ key ] = self.prepareObjectMap( objMap ) as AnyObject
             case let objArray as [AnyObject]:
-                obj[ key ] = self.prepareObjectArray( objArray ) as AnyObject?
+                obj[ key ] = self.prepareObjectArray( objArray ) as AnyObject
             case let rect as JNRect:
-                obj[ key ] = rect.toMap() as AnyObject?
+                obj[ key ] = rect.toMap() as AnyObject
             default:
                 obj[ key ] = value
             }
