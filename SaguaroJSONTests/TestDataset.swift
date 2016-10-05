@@ -43,8 +43,8 @@ public struct DocumentIdentifier: CustomStringConvertible {
     
     // convenience func for creating standard 32 character id's
     public static func createModelId() -> String {
-        let uuid = NSUUID().UUIDString.lowercaseString
-        let mid = uuid.stringByReplacingOccurrencesOfString("-", withString:"")
+        let uuid = NSUUID().uuidString.lowercased() as NSString
+		let mid = uuid.replacingOccurrences(of: "-", with: "")
         
         return mid
     }
@@ -54,15 +54,15 @@ class TestDataset {
     let jnparser = JNParser()
 
     func createDocumentIdentifierMap() -> [String:AnyObject] {
-        let uuid = NSUUID().UUIDString.lowercaseString
-        let mid = uuid.stringByReplacingOccurrencesOfString("-", withString:"")
+        let uuid = NSUUID().uuidString.lowercased() as NSString
+		let mid = uuid.replacingOccurrences(of: "-", with: "")
 
         let map = [
-            "id":mid,
+            "id":mid as AnyObject,
             "dateCreated":NSDate(),
             "lastUpdated":NSDate(),
-            "version":"1.0"
-        ]
+            "version":"1.0" as AnyObject
+        ] as [String : AnyObject]
 
         return map
     }
@@ -74,42 +74,42 @@ class TestDataset {
         let created = jnparser.dateFromString( "2015-06-18T09:47:49.427Z" )!
 
         var model = createDocumentIdentifierMap()
-        model[ "names" ] = ["jon","jane","joe"]
+		model[ "names" ] = ["jon","jane","joe"] as AnyObject
         model[ "jobs" ] = [
             "job1":"my job 1",
             "job2":"my second job",
             "job 3":"my third job",
             "color":UIColor(red: 100.0/255, green:110.0/255, blue:120.0/255, alpha: 1.0),
-            "rect":JNRect( rect:CGRectMake( -44, 23, 400, 200) )
-        ]
+            "rect":JNRect( rect:CGRect(x: -44, y: 23, width: 400, height: 200) )
+        ] as AnyObject
 
         let obj:[String:AnyObject] = [
-            "name": name,
-            "age": age,
-            "height": height,
-            "created": created,
-            "hasHair": false,
-            "newcolor": UIColor.blueColor(),
+            "name": name as AnyObject,
+            "age": age as AnyObject,
+            "height": height as AnyObject,
+            "created": created as AnyObject,
+            "hasHair": false as AnyObject,
+            "newcolor": UIColor.blue,
             "nullvalue":NSNull(),
-            "model":model
+            "model":model as AnyObject
         ]
         
         return obj
     }
 
     var fixturePath:String {
-        var parts = #file.componentsSeparatedByString("/")
+		var parts = #file.components(separatedBy: "/")
 
         parts.removeLast()
 
-        return "/" + parts.joinWithSeparator("/")
+        return "/" + parts.joined(separator: "/")
     }
 
     func readFixtureFile(filename:String) -> String? {
         let path = fixturePath + "/" + filename
 
         do {
-            let text = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
 
             return text
         } catch let error as NSError {

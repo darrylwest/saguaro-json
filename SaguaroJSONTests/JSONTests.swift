@@ -23,7 +23,7 @@ class JSONTests: XCTestCase {
     }
 
     func testParse() {
-        guard let jsonString = dataset.readFixtureFile("user-response.json") else {
+        guard let jsonString = dataset.readFixtureFile(filename: "user-response.json") else {
             XCTFail( "failed to read json file" )
             return
         }

@@ -62,7 +62,7 @@ class JNParserTests: XCTestCase {
     }
 
     func testParseDateFromJSONString() {
-        let parts = NSDateComponents()
+        var parts = DateComponents()
 
         parts.year = 2015
         parts.month = 6
@@ -71,14 +71,12 @@ class JNParserTests: XCTestCase {
         parts.minute = 47
         parts.second = 49
 
-        let calendar = NSCalendar.currentCalendar()
-        guard let date = calendar.dateFromComponents( parts ) else {
+        let calendar = Calendar.current
+        guard let date = calendar.date( from: parts ) else {
             return XCTFail("should create a date string")
         }
 
-        guard let ds:String = jnparser.stringFromDate( date ) else {
-            return XCTFail("should create a date string")
-        }
+        let ds:String = jnparser.stringFromDate( date )
 
         guard let dt = jnparser.dateFromString( ds ) else {
             return XCTFail("should create a date from json string")
@@ -90,7 +88,7 @@ class JNParserTests: XCTestCase {
 
         XCTAssertEqual(dt, date, "dates should match")
 
-        let parsedParts:NSDateComponents = calendar.components([ .Year, .Month, .Day, .Hour, .Minute, .Second ], fromDate: dt)
+        let parsedParts:DateComponents = (calendar as NSCalendar).components([ .year, .month, .day, .hour, .minute, .second ], from: dt)
 
         // print( parsedParts )
 
@@ -169,7 +167,7 @@ class JNParserTests: XCTestCase {
                 RGBAType.alpha.rawValue: alpha
             ]
             
-            guard let color = jnparser.colorFromMap( map ) else {
+            guard let color = jnparser.colorFromMap( map as [String : AnyObject] ) else {
                 XCTFail("should convert map to color")
                 return
             }
@@ -226,7 +224,7 @@ class JNParserTests: XCTestCase {
             "height":4423.33
         ]
 
-        guard let rect = jnparser.rectFromMap( map ) else {
+        guard let rect = jnparser.rectFromMap( map as [String : AnyObject] ) else {
             return XCTFail("could not create rect from map: \( map )")
         }
 
