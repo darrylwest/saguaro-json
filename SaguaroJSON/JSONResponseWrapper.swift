@@ -13,7 +13,7 @@ public struct JSONResponseWrapper: CustomStringConvertible {
     public let status:String
     public let ts:Double
     public let version:String
-    public private(set) var reason:String = ""
+    public fileprivate(set) var reason:String = ""
     public let isOk:Bool
 
     public init?(jsonObject: [String:AnyObject]) {
@@ -49,12 +49,12 @@ public struct JSONResponseWrapper: CustomStringConvertible {
         }
     }
 
-    static public func createWrapper(key key:String, value:AnyObject) -> [String:AnyObject] {
+    static public func createWrapper(key:String, value:AnyObject) -> [String:AnyObject] {
         let formatter = JSON.jnparser.formatter
         let wrapper:[String:AnyObject] = [
-            "status":JSONResponseWrapper.Ok,
-            "ts":formatter.createUnixTimestamp(),
-            "version":"1.0",
+            "status":JSONResponseWrapper.Ok as AnyObject,
+            "ts":formatter.createUnixTimestamp() as AnyObject,
+            "version":"1.0" as AnyObject,
             key:value
         ]
 
